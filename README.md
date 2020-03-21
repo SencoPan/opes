@@ -1,5 +1,5 @@
-# currencyconv
-
+# Opes
+This site will be ordinary currency converter.
 ## Project setup
 ```
 npm install
@@ -24,6 +24,3 @@ npm run test:unit
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
