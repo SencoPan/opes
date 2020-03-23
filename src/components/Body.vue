@@ -1,18 +1,17 @@
 <template>
   <div class="body">
     <div class="content">
-      <div class="converter">
-        <h1>Hello world</h1>
-      </div>
-      <div class="side_menu">
-      </div>
+      <Converter />
+      <div class="side_menu"></div>
     </div>
   </div>
 </template>
 
 <script>
+import Converter from "./body/converter";
 export default {
-  name: "Body"
+  name: "Body",
+  components: { Converter }
 };
 </script>
 
@@ -25,7 +24,7 @@ div.content {
   margin: 1em 0 1em 0;
   display: flex;
   width: 90em;
-  min-height: 47em;
+  min-height: 45.9em;
   flex-direction: row;
 }
 div.content h1 {
