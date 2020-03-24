@@ -15,10 +15,11 @@
           <a class="contact-site"><i class="fab fa-vk"></i></a>
           <a class="contact-site"><i class="fab fa-github"></i></a>
           <a class="contact-site"><i class="fab fa-telegram"></i></a>
+          <a class="contact-site"><i class="fab fa-facebook"></i></a>
         </div>
       </div>
       <div class="copyright">
-        <a href="https://github.com/SencoPan"> © 2020 OPES, Inc. </a>
+        <a href="https://github.com/SencoPan"> © 2020 Opes, Inc. </a>
       </div>
     </div>
   </div>
@@ -49,7 +50,7 @@ div.content {
   margin-bottom: 1em;
 }
 div.copyright a {
-  color: #2c3e50;
+  color: #737b84;
   text-decoration: none;
   margin: auto;
 }
@@ -59,13 +60,15 @@ div.copyright a {
   justify-content: space-between;
   text-align: left;
   margin-top: auto;
-  margin-bottom: 1.3em;
 }
 .info-block .user-info a {
   margin: 0;
   font-size: 0.9em;
   text-decoration: none;
-  color: #7c8eec;
+  color: #9d9d9d;
+}
+svg {
+  color: #9d9d9d;
 }
 .user-info {
   display: flex;
@@ -73,8 +76,8 @@ div.copyright a {
 }
 .user-info span {
   font-size: 1.1em;
-  color: #2c3e50;
-  margin-bottom: 0.1em;
+  color: #606060;
+  margin-bottom: 0.4em;
 }
 .contact {
   display: flex;
@@ -83,10 +86,9 @@ div.copyright a {
   display: flex;
   margin-top: auto;
   margin-bottom: auto;
-  font-size: 1.7em;
-  text-align: center;
+  font-size: 2em;
+  text-align: start;
 }
-
 .contact a::after {
   content: "";
   margin-left: 0.3em;
