@@ -6,7 +6,12 @@
     <div class="input">
       <div class="current_currency part">
         <div class="current_currency_display">
-          <p>RUB</p>
+          <input @mouseleave="checkValueAfter('curr')" list="currency" v-model="curr"/>
+          <datalist id="currency">
+            <option v-for="currency in availableCurrency" v-bind:key="currency">
+              {{ currency }}
+            </option>
+          </datalist>
         </div>
         <label>
           <input type="text" class="currency_amount" />
@@ -18,7 +23,13 @@
       </div>
       <div class="converted_currency part">
         <div class="current_currency_display">
-          <p>USD</p>
+          <input @mouseleave="checkValueAfter()" list="con_currency" v-model="conv"/>
+          <p> {{ conv }}</p>
+          <datalist id="con_currency">
+            <option v-for="currency in availableCurrency" v-bind:key="currency">
+              {{ currency }}
+            </option>
+          </datalist>
         </div>
         <label>
           <input type="text" class="currency_amount" />
@@ -36,6 +47,22 @@
 
 <script>
 export default {
+  data() {
+    return {
+      curr: "RUB",
+      conv: "USD",
+      availableCurrency: ["UAN", "KOF", "RUB", "USD"]
+    };
+  },
+  methods: {
+    checkValueAfter: async function(input) {
+      if (input === "curr") {
+        !(this.curr in this.availableCurrency) ? (this.curr = "") : this.curr;
+      } else {
+        !(this.conv in this.availableCurrency) ? (this.conv = "") : this.conv;
+      }
+    },
+  },
   name: "converter"
 };
 </script>
@@ -63,6 +90,15 @@ label {
 .input div.part:nth-child(3) {
   margin-right: auto;
 }
+input[list] {
+  font: normal 1.3em sans-serif;
+  width: 2.5em;
+  text-align: center;
+  border: none;
+  text-transform: uppercase;
+  border-bottom: #9d9d9d .1em solid;
+}
+
 /*hr {
   height: 1px;
   border: none;
@@ -79,7 +115,7 @@ label {
 .exchange-action + svg {
   display: flex;
   font-size: 3em;
-  margin: auto 0 auto 0;
+  margin: 180% 0 auto 0;
 }
 .current_currency, .converted_currency {
   flex-direction: column;
