@@ -6,7 +6,13 @@
     <div class="input">
       <div class="current_currency part">
         <div class="current_currency_display">
-          <input @mouseleave="checkValueAfter('curr')" list="currency" v-model="curr"/>
+          <label>
+            <input
+              @blur="checkValueAfter('curr')"
+              list="currency"
+              v-model="curr"
+            />
+          </label>
           <datalist id="currency">
             <option v-for="currency in availableCurrency" v-bind:key="currency">
               {{ currency }}
@@ -14,7 +20,12 @@
           </datalist>
         </div>
         <label>
-          <input type="text" class="currency_amount" />
+          <input
+            type="text"
+            class="currency_amount"
+            v-on:keydown="getRid($event)"
+            v-model="currInput"
+          />
         </label>
       </div>
       <div class="convert_sign part">
@@ -23,8 +34,7 @@
       </div>
       <div class="converted_currency part">
         <div class="current_currency_display">
-          <input @mouseleave="checkValueAfter()" list="con_currency" v-model="conv"/>
-          <p> {{ conv }}</p>
+          <input @blur="checkValueAfter()" list="con_currency" v-model="conv" />
           <datalist id="con_currency">
             <option v-for="currency in availableCurrency" v-bind:key="currency">
               {{ currency }}
@@ -32,7 +42,12 @@
           </datalist>
         </div>
         <label>
-          <input type="text" class="currency_amount" />
+          <input
+            type="text"
+            class="currency_amount"
+            v-on:keydown="getRid($event)"
+            v-model="convInput"
+          />
         </label>
       </div>
     </div>
@@ -51,17 +66,37 @@ export default {
     return {
       curr: "RUB",
       conv: "USD",
+      currInput: 0,
+      convInput: 0,
       availableCurrency: ["UAN", "KOF", "RUB", "USD"]
     };
   },
   methods: {
-    checkValueAfter: async function(input) {
-      if (input === "curr") {
-        !(this.curr in this.availableCurrency) ? (this.curr = "") : this.curr;
-      } else {
-        !(this.conv in this.availableCurrency) ? (this.conv = "") : this.conv;
+    getRid: async function(event) {
+      let charCode = event.keyCode;
+      if (
+        charCode > 31 &&
+        (charCode < 48 || charCode > 57) &&
+        (charCode < 96 || charCode > 105) &&
+        charCode !== 188 &&
+        charCode !== 110
+      ) {
+        event.preventDefault();
+        this.currInput === "" ? (this.currInput = 0) : false;
+        this.convInput === "" ? (this.convInput = 0) : false;
       }
     },
+    checkValueAfter: async function(input) {
+      if (input === "curr") {
+        !(this.availableCurrency.indexOf(this.curr) !== -1)
+          ? (this.curr = "")
+          : this.curr;
+      } else {
+        !(this.availableCurrency.indexOf(this.conv) !== -1)
+          ? (this.conv = "")
+          : this.conv;
+      }
+    }
   },
   name: "converter"
 };
@@ -96,7 +131,7 @@ input[list] {
   text-align: center;
   border: none;
   text-transform: uppercase;
-  border-bottom: #9d9d9d .1em solid;
+  border-bottom: #9d9d9d 0.1em solid;
 }
 
 /*hr {
@@ -117,7 +152,8 @@ input[list] {
   font-size: 3em;
   margin: 180% 0 auto 0;
 }
-.current_currency, .converted_currency {
+.current_currency,
+.converted_currency {
   flex-direction: column;
 }
 .current_currency_display {
